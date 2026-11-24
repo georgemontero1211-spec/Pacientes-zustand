@@ -1,69 +1,48 @@
-# React + TypeScript + Vite
+# Seguimiento de Pacientes Veterinaria
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web para que una veterinaria registre y administre a sus pacientes. Permite dar de alta a una mascota con los datos de su propietario y sus síntomas, editarla y eliminarla. Los datos se guardan en el navegador, así que siguen ahí al recargar la página.
 
-Currently, two official plugins are available:
+## Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Formulario de registro con validación (React Hook Form):
+  - Nombre del paciente
+  - Propietario
+  - Email (con validación de formato)
+  - Fecha de alta
+  - Síntomas
+- Listado de pacientes registrados.
+- Edición y eliminación de pacientes.
+- Notificaciones de confirmación con React Toastify.
+- Persistencia en `localStorage` mediante el middleware `persist` de Zustand.
 
-## Expanding the ESLint configuration
+## Tecnologías
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React + TypeScript + Vite
+- Zustand (estado global con `persist` y `devtools`)
+- React Hook Form
+- React Toastify
+- Tailwind CSS
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Estructura
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+src/
+├── components/   # PatientForm, PatientList, PatientDetails, Error…
+├── types/        # Tipos Patient y DraftPatient
+├── store.ts      # Store de Zustand (alta, edición, borrado)
+└── App.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Cómo ejecutarlo
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
+
+| Script            | Descripción                       |
+| ----------------- | --------------------------------- |
+| `npm run dev`     | Servidor de desarrollo            |
+| `npm run build`   | Compila TypeScript y genera build |
+| `npm run preview` | Sirve el build de producción      |
+| `npm run lint`    | Ejecuta ESLint                    |
